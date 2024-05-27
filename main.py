@@ -1,21 +1,21 @@
 import numpy as np
 from agent import Agent
-from visualization import plot_rewards, plot_comparison, plot_selections
+from visualization import plot_comparison_seaborn, plot_color_adjusted_grouped_selections_seaborn
 
 def run_simulation(n_arms, epsilon_values, alpha, episodes, true_means):
     
     """
-    Runs a simulation for multiple ε-greedy agents with varying epsilon values.
-    
+    Run the multi-armed bandit simulation with different epsilon-greedy agents.
+
     Parameters:
         n_arms (int): Number of arms in the bandit.
-        epsilon_values (list of float): Epsilon values for each agent to test.
+        epsilon_values (list): List of epsilon values for different agents.
         alpha (float): Step size for updating estimates.
-        episodes (int): Number of episodes to run.
-        true_means (np.array): True mean rewards for each arm.
-        
+        episodes (int): Number of episodes to run the simulation.
+        true_means (np.array): True reward means for each arm.
+
     Returns:
-        np.array: Rewards matrix with each row representing an agent's rewards over episodes.
+        tuple: Tuple containing arrays of rewards and selections for each agent.
     """
     
     agents = [Agent(n_arms, epsilon, alpha, true_means) for epsilon in epsilon_values]
@@ -32,22 +32,14 @@ def run_simulation(n_arms, epsilon_values, alpha, episodes, true_means):
 
     return rewards, selections
 
-def main():
+if __name__ == "__main__":
     
-    # Parameters
     n_arms = 10
-    epsilon_values = [0.01, 0.1, 0.2]  # Different epsilon values for comparison
+    epsilon_values = [0.01, 0.1, 0.2]
     alpha = 0.1
     episodes = 1000
     true_means = np.random.randn(n_arms)
 
-    # Run simulation
     rewards, selections = run_simulation(n_arms, epsilon_values, alpha, episodes, true_means)
-
-    # Visualization
-    plot_rewards(rewards[-1])  # Plot rewards for the last agent for consistency
-    plot_comparison(rewards, epsilon_values)
-    plot_selections(selections[-1])  # Plot selections for the last agent for consistency
-
-if __name__ == "__main__":
-    main()
+    plot_comparison_seaborn(rewards, epsilon_values)
+    plot_color_adjusted_grouped_selections_seaborn(selections, epsilon_values)
