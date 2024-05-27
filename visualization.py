@@ -2,50 +2,71 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-def plot_comparison_seaborn(rewards, epsilon_values):
+def plot_comparison_seaborn(rewards, labels):
     
     """
-    Plot the comparison of average rewards over episodes for different epsilon values using Seaborn, including any agents with optimistic initial values.
+    Plot the comparison of average rewards over episodes for different agents using Seaborn.
 
     Parameters:
         rewards (np.array): Array containing rewards for each episode for each agent.
-        epsilon_values (list): List of epsilon values used for different agents, including an extra label for the optimistic agent.
+        labels (list): List of labels for different agents.
     """
     
     plt.figure(figsize=(12, 6))
     episodes = rewards.shape[1]
-    for i in range(rewards.shape[0]):
-        label = f'ε={epsilon_values[i]}' if i < len(epsilon_values) - 1 else 'Optimistic ε=0.1'
+    for i, label in enumerate(labels):
         sns.lineplot(np.arange(1, episodes + 1), np.cumsum(rewards[i]) / np.arange(1, episodes + 1), label=label)
     plt.xlabel('Episodes', fontsize=14)
     plt.ylabel('Average Reward', fontsize=14)
-    plt.title('Comparison of ε-Greedy Agents Using Seaborn', fontsize=16)
+    plt.title('Average Reward vs. Episodes', fontsize=16)
     plt.legend()
     plt.grid(True)
     plt.show()
 
-def plot_color_adjusted_grouped_selections_seaborn(selections, epsilon_values):
+def plot_color_adjusted_grouped_selections_seaborn(selections, labels):
     
     """
-    Plot the number of times each arm was selected by each agent in a grouped bar chart using Seaborn, including agents with optimistic initial values.
+    Plot the number of times each arm was selected by each agent in a grouped bar chart using Seaborn.
 
     Parameters:
         selections (np.array): Array containing the count of selections for each arm for all agents.
-        epsilon_values (list): List of ε-values used in the simulation to label the agents, including an extra label for the optimistic agent.
+        labels (list): List of labels for different agents.
     """
     
-    plt.figure(figsize=(14, 8))
-    arms = np.arange(selections.shape[1])
-    width = 0.25  # Width of each bar, optimally adjusted for visibility and contrast
-    palette = sns.color_palette("Set2", len(epsilon_values))
+    n_agents, n_arms = selections.shape
+    indices = np.arange(n_arms)
+    bar_width = 0.15
+
+    fig, ax = plt.subplots(figsize=(12, 6))
+    for i in range(n_agents):
+        ax.bar(indices + i * bar_width, selections[i], bar_width, label=labels[i])
     
-    for i, agent_selections in enumerate(selections):
-        label = f'ε={epsilon_values[i]}' if i < len(epsilon_values) - 1 else 'Optimistic ε=0.1'
-        plt.bar(arms + i * width, agent_selections, width=width, label=label, color=palette[i])
+    ax.set_xlabel('Arms', fontsize=14)
+    ax.set_ylabel('Number of Selections', fontsize=14)
+    ax.set_title('Selections of Each Arm', fontsize=16)
+    ax.set_xticks(indices + bar_width * (n_agents - 1) / 2)
+    ax.set_xticklabels([f'Arm {i}' for i in range(n_arms)])
+    ax.legend()
+    plt.grid(True)
+    plt.show()
+
+def plot_optimistic_vs_ucb(rewards, labels):
     
-    plt.xlabel('Arms', fontsize=14)
-    plt.ylabel('Number of times selected', fontsize=14)
-    plt.title('Grouped Bar Chart of Arm Selections by ε-Greedy Agents', fontsize=16)
-    plt.xticks(arms + width * len(epsilon_values) / 2, arms)
-    plt.legend(title='Agent ε-value')
+    """
+    Plot the comparison of average rewards over episodes between Optimistic and UCB agents using Seaborn.
+
+    Parameters:
+        rewards (np.array): Array containing rewards for each episode for the Optimistic and UCB agents.
+        labels (list): List of labels for the Optimistic and UCB agents.
+    """
+    
+    plt.figure(figsize=(12, 6))
+    episodes = rewards.shape[1]
+    for i, label in enumerate(labels):
+        sns.lineplot(np.arange(1, episodes + 1), np.cumsum(rewards[i]) / np.arange(1, episodes + 1), label=label)
+    plt.xlabel('Episodes', fontsize=14)
+    plt.ylabel('Average Reward', fontsize=14)
+    plt.title('Comparison between Optimistic and UCB Agents', fontsize=16)
+    plt.legend()
+    plt.grid(True)
     plt.show()
