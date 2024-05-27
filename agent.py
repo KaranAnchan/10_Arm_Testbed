@@ -3,22 +3,18 @@ import numpy as np
 class Agent:
     
     """
-    Represents an agent using the ε-greedy strategy on a 10-armed bandit problem.
+    Agent for the ε-greedy strategy in a multi-armed bandit problem.
     
     Attributes:
         n_arms (int): Number of arms in the bandit.
-        epsilon (float): Probability of selecting a random arm (explore).
-        alpha (float): Step size for updating estimates.
-        true_means (ndarray): True mean rewards of the arms.
-        estimates (ndarray): Estimated values of the arms.
-        counts (ndarray): Number of times each arm has been chosen.
+        epsilon (float): Exploration probability.
+        alpha (float): Step size for incremental average.
+        true_means (np.array): True mean rewards of the arms.
+        estimates (np.array): Estimated values of the arms.
+        counts (np.array): How many times each arm was chosen.
     """
     
-    def __init__(self, 
-                 n_arms, 
-                 epsilon, 
-                 alpha, 
-                 true_means):
+    def __init__(self, n_arms, epsilon, alpha, true_means):
         
         self.n_arms = n_arms
         self.epsilon = epsilon
@@ -26,48 +22,44 @@ class Agent:
         self.true_means = true_means
         self.estimates = np.zeros(n_arms)
         self.counts = np.zeros(n_arms)
-        
+
     def choose_arm(self):
         
         """
-        Choose an arm using ε-greedy strategy.
+        Selects an arm based on the ε-greedy strategy.
         
         Returns:
-            int: The selected arm index.
+            int: Index of the selected arm.
         """
         
         if np.random.rand() < self.epsilon:
             return np.random.randint(self.n_arms)  # Explore
         else:
             return np.argmax(self.estimates)  # Exploit
-        
-    def get_reward(self, 
-                   arm):
+
+    def get_reward(self, arm):
         
         """
-        Simulate getting a reward for an arm.
+        Gets a reward for a chosen arm, simulated as a draw from a normal distribution.
         
         Parameters:
-            arm (int): The chosen arm.
+            arm (int): Index of the chosen arm.
         
         Returns:
-            float: The reward obtained.
+            float: Simulated reward.
         """
         
-        reward = np.random.normal(self.true_means[arm], 1)
-        return reward
-    
-    def update_estimates(self, 
-                         arm, 
-                         reward):
+        return np.random.normal(self.true_means[arm], 1)
+
+    def update_estimates(self, arm, reward):
         
         """
-        Update the estimated value of the chosen arm.
+        Updates the estimated value of the selected arm using incremental averaging.
         
         Parameters:
-            arm (int): The chosen arm.
-            reward (float): The reward received from choosing the arm.
+            arm (int): Index of the arm.
+            reward (float): Reward received.
         """
         
         self.counts[arm] += 1
-        self.estimates[arm] += self.alpha * (reward - self.estimates[arm])  # Incremental update
+        self.estimates[arm] += self.alpha * (reward - self.estimates[arm])
