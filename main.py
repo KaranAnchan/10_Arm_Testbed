@@ -1,6 +1,6 @@
 import numpy as np
 from agent import Agent
-from visualization import plot_rewards
+from visualization import plot_rewards, plot_selections
 
 def main():
     
@@ -21,14 +21,17 @@ def main():
     
     # Simulation
     rewards = []
+    selections = np.zeros(n_arms)
     for _ in range(episodes):
         arm = agent.choose_arm()
+        selections[arm] += 1
         reward = agent.get_reward(arm)
         agent.update_estimates(arm, reward)
         rewards.append(reward)
-        
+    
     # Visualization
     plot_rewards(rewards)
+    plot_selections(selections)
         
 if __name__ == "__main__":
     main()
