@@ -1,5 +1,6 @@
 import numpy as np
 from agent import Agent
+from visualization import plot_rewards
 
 def main():
     # Parameters
@@ -19,6 +20,9 @@ def main():
         reward = agent.get_reward(arm)
         agent.update_estimates(arm, reward)
         rewards.append(reward)
+        
+    # Visualization
+    plot_rewards(rewards)
         
 if __name__ == "__main__":
     main()
