@@ -19,3 +19,6 @@ def main():
         reward = agent.get_reward(arm)
         agent.update_estimates(arm, reward)
         rewards.append(reward)
+        
+if __name__ == "__main__":
+    main()
