@@ -3,6 +3,7 @@ from agent import Agent
 from visualization import plot_rewards, plot_comparison, plot_selections
 
 def run_simulation(n_arms, epsilon_values, alpha, episodes, true_means):
+    
     """
     Runs a simulation for multiple ε-greedy agents with varying epsilon values.
     
@@ -16,6 +17,7 @@ def run_simulation(n_arms, epsilon_values, alpha, episodes, true_means):
     Returns:
         np.array: Rewards matrix with each row representing an agent's rewards over episodes.
     """
+    
     agents = [Agent(n_arms, epsilon, alpha, true_means) for epsilon in epsilon_values]
     rewards = np.zeros((len(agents), episodes))
     selections = np.zeros((len(agents), n_arms))
@@ -31,6 +33,7 @@ def run_simulation(n_arms, epsilon_values, alpha, episodes, true_means):
     return rewards, selections
 
 def main():
+    
     # Parameters
     n_arms = 10
     epsilon_values = [0.01, 0.1, 0.2]  # Different epsilon values for comparison
