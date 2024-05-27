@@ -61,7 +61,13 @@ class Agent:
                          arm, 
                          reward):
         
+        """
+        Update the estimated value of the chosen arm.
         
+        Parameters:
+            arm (int): The chosen arm.
+            reward (float): The reward received from choosing the arm.
+        """
         
         self.counts[arm] += 1
         self.estimates[arm] += self.alpha * (reward - self.estimates[arm])  # Incremental update
