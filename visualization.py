@@ -35,8 +35,6 @@ def plot_color_adjusted_grouped_selections_seaborn(selections, epsilon_values):
     plt.figure(figsize=(14, 8))
     arms = np.arange(selections.shape[1])  # Arms are the base for the x-axis
     width = 0.25  # Width of each bar, optimally adjusted for visibility and contrast
-    
-    # New color palette for better visual distinction
     palette = sns.color_palette("Set2", len(epsilon_values))
     
     for i, agent_selections in enumerate(selections):
