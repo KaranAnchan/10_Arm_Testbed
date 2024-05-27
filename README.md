@@ -1,4 +1,3 @@
-
 ---
 
 # 10-Arm Testbed Simulation 🎰
@@ -33,19 +32,39 @@ To run the simulation, execute the `main.py` file. This can be done from the com
 python main.py
 ```
 
-## Results 📊
+## Visualizations 📊
 
 ### Average Reward vs. Episodes
-![Average Reward vs. Episodes](images/average_reward_plot.png)
-*This plot shows how the average reward received by the agents evolves over the episodes for different ε-values. From the visualization, we can observe the following:*
-- **Higher ε-values**: Agents with higher ε-values (e.g., 0.2) show more initial exploration, which can lead to discovering more rewarding options early on, but may result in lower average rewards initially as they explore less optimal choices.
-- **Lower ε-values**: Agents with lower ε-values (e.g., 0.01) tend to exploit their current knowledge more efficiently, leading to higher immediate returns, especially if they initially stumble upon higher-rewarding arms.
+
+This plot shows the average reward over episodes for different agents.
+
+![Average Reward vs. Episodes](./images/average_reward_vs_episodes.png)
 
 ### Selections of Each Arm
-![Selections of Each Arm](images/selections_plot.png)
-*This plot displays how frequently each arm was chosen by the agents, indicating their exploration strategies. Key insights include:*
-- **Balanced Exploration**: Agents with moderate ε-values (e.g., 0.1) often achieve a balance between exploration and exploitation, gradually focusing more on the better-performing arms as they learn from repeated interactions.
-- **Preference Patterns**: The variation in selection across arms for higher ε-values suggests a more uniform exploration pattern, while lower ε-values indicate a rapid convergence to a few perceived best options.
+
+This grouped bar chart visualizes the number of times each arm was selected by different agents.
+
+![Selections of Each Arm](./images/selections_of_each_arm.png)
+
+### Comparison between Optimistic and UCB Agents
+
+This plot compares the average reward over episodes for the optimistic initial values agent and the UCB agent.
+
+![Optimistic vs. UCB](./images/optimistic_vs_ucb.png)
+
+## Inferences from Visualizations 📈
+
+1. **Average Reward vs. Episodes**:
+   - The UCB agent consistently achieves a higher average reward compared to ε-greedy agents.
+   - The optimistic initial values agent starts strong but converges to similar performance as the ε = 0.1 agent.
+
+2. **Selections of Each Arm**:
+   - The UCB agent explores the arms more uniformly compared to other agents.
+   - The ε = 0.01 agent tends to exploit more, showing a preference for a particular arm.
+
+3. **Comparison between Optimistic and UCB Agents**:
+   - The UCB agent outperforms the optimistic initial values agent in terms of average reward.
+   - The optimistic agent starts with a higher initial reward but is eventually surpassed by the UCB agent.
 
 ## Contributing 🤝
 
