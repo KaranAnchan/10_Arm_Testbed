@@ -18,3 +18,7 @@ class Agent:
     def get_reward(self, arm):
         reward = np.random.normal(self.true_means[arm], 1)
         return reward
+    
+    def update_estimates(self, arm, reward):
+        self.counts[arm] += 1
+        self.estimates[arm] += self.alpha * (reward - self.estimates[arm])  # Incremental update
