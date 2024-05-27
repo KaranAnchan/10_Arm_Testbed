@@ -11,3 +11,11 @@ def main():
     # Initialization
     true_means = np.random.randn(n_arms)
     agent = Agent(n_arms, epsilon, alpha, true_means)
+    
+    # Simulation
+    rewards = []
+    for _ in range(episodes):
+        arm = agent.choose_arm()
+        reward = agent.get_reward(arm)
+        agent.update_estimates(arm, reward)
+        rewards.append(reward)
