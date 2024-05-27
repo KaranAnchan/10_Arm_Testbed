@@ -3,19 +3,18 @@ import numpy as np
 class Agent:
     
     """
-    Agent for the ε-greedy strategy in a multi-armed bandit problem.
-    
+    Represents an ε-greedy agent for the multi-armed bandit problem.
+
     Attributes:
         n_arms (int): Number of arms in the bandit.
-        epsilon (float): Exploration probability.
-        alpha (float): Step size for incremental average.
-        true_means (np.array): True mean rewards of the arms.
-        estimates (np.array): Estimated values of the arms.
-        counts (np.array): How many times each arm was chosen.
+        epsilon (float): Probability of exploring.
+        alpha (float): Step size for updating estimates.
+        true_means (np.array): True reward means for each arm.
+        estimates (np.array): Estimated values for each arm.
+        counts (np.array): Count of selections for each arm.
     """
     
     def __init__(self, n_arms, epsilon, alpha, true_means):
-        
         self.n_arms = n_arms
         self.epsilon = epsilon
         self.alpha = alpha
@@ -26,10 +25,10 @@ class Agent:
     def choose_arm(self):
         
         """
-        Selects an arm based on the ε-greedy strategy.
-        
+        Select which arm to pull based on ε-greedy strategy.
+
         Returns:
-            int: Index of the selected arm.
+            int: Index of the chosen arm.
         """
         
         if np.random.rand() < self.epsilon:
@@ -40,13 +39,13 @@ class Agent:
     def get_reward(self, arm):
         
         """
-        Gets a reward for a chosen arm, simulated as a draw from a normal distribution.
-        
+        Simulate getting a reward for a chosen arm.
+
         Parameters:
-            arm (int): Index of the chosen arm.
-        
+            arm (int): The chosen arm.
+
         Returns:
-            float: Simulated reward.
+            float: The reward received.
         """
         
         return np.random.normal(self.true_means[arm], 1)
@@ -54,12 +53,12 @@ class Agent:
     def update_estimates(self, arm, reward):
         
         """
-        Updates the estimated value of the selected arm using incremental averaging.
-        
+        Update the estimated values for a chosen arm based on the received reward.
+
         Parameters:
-            arm (int): Index of the arm.
-            reward (float): Reward received.
+            arm (int): The chosen arm.
+            reward (float): The reward received.
         """
         
         self.counts[arm] += 1
-        self.estimates[arm] += self.alpha * (reward - self.estimates[arm])
+        self.estimates[arm] += self.alpha * (reward - self.estimates[arm])  # Incremental update
