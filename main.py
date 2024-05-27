@@ -3,6 +3,12 @@ from agent import Agent
 from visualization import plot_rewards
 
 def main():
+    
+    """
+    Main function to run the ε-greedy 10-Arm Testbed simulation.
+    Sets up the environment, runs the simulation, and invokes plotting functions.
+    """
+    
     # Parameters
     n_arms = 10
     episodes = 1000
