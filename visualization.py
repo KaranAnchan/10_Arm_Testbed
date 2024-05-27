@@ -2,6 +2,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def plot_rewards(rewards):
+    
+    """
+    Plot the average reward over episodes.
+    
+    Parameters:
+        rewards (list): List of rewards obtained per episode.
+    """
+    
     plt.figure(figsize=(10, 5))
     plt.plot(np.cumsum(rewards) / np.arange(1, len(rewards)+1), color='blue')
     plt.xlabel('Episodes')
