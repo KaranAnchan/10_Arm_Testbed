@@ -1,6 +1,19 @@
 import numpy as np
 
 class Agent:
+    
+    """
+    Represents an agent using the ε-greedy strategy on a 10-armed bandit problem.
+    
+    Attributes:
+        n_arms (int): Number of arms in the bandit.
+        epsilon (float): Probability of selecting a random arm (explore).
+        alpha (float): Step size for updating estimates.
+        true_means (ndarray): True mean rewards of the arms.
+        estimates (ndarray): Estimated values of the arms.
+        counts (ndarray): Number of times each arm has been chosen.
+    """
+    
     def __init__(self, n_arms, epsilon, alpha, true_means):
         self.n_arms = n_arms
         self.epsilon = epsilon
