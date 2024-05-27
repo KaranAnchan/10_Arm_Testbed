@@ -44,7 +44,15 @@ class Agent:
     def get_reward(self, 
                    arm):
         
+        """
+        Simulate getting a reward for an arm.
         
+        Parameters:
+            arm (int): The chosen arm.
+        
+        Returns:
+            float: The reward obtained.
+        """
         
         reward = np.random.normal(self.true_means[arm], 1)
         return reward
