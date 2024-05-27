@@ -35,11 +35,17 @@ python main.py
 
 ## Results 📊
 
-The simulation generates two types of visualizations:
+### Average Reward vs. Episodes
+![Average Reward vs. Episodes](images/average_reward_plot.png)
+*This plot shows how the average reward received by the agents evolves over the episodes for different ε-values. From the visualization, we can observe the following:*
+- **Higher ε-values**: Agents with higher ε-values (e.g., 0.2) show more initial exploration, which can lead to discovering more rewarding options early on, but may result in lower average rewards initially as they explore less optimal choices.
+- **Lower ε-values**: Agents with lower ε-values (e.g., 0.01) tend to exploit their current knowledge more efficiently, leading to higher immediate returns, especially if they initially stumble upon higher-rewarding arms.
 
-- **Average Reward vs. Episodes**: Shows how the average reward received by the agents evolves over the episodes.
-  
-- **Selections of Each Arm**: Displays how frequently each arm was chosen by the agents, indicating their exploration strategies.
+### Selections of Each Arm
+![Selections of Each Arm](images/selections_plot.png)
+*This plot displays how frequently each arm was chosen by the agents, indicating their exploration strategies. Key insights include:*
+- **Balanced Exploration**: Agents with moderate ε-values (e.g., 0.1) often achieve a balance between exploration and exploitation, gradually focusing more on the better-performing arms as they learn from repeated interactions.
+- **Preference Patterns**: The variation in selection across arms for higher ε-values suggests a more uniform exploration pattern, while lower ε-values indicate a rapid convergence to a few perceived best options.
 
 ## Contributing 🤝
 
