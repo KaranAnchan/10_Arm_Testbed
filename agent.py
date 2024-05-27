@@ -14,3 +14,7 @@ class Agent:
             return np.random.randint(self.n_arms)  # Explore
         else:
             return np.argmax(self.estimates)  # Exploit
+        
+    def get_reward(self, arm):
+        reward = np.random.normal(self.true_means[arm], 1)
+        return reward
