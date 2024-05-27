@@ -3,23 +3,25 @@ import numpy as np
 class Agent:
     
     """
-    Represents an ε-greedy agent for the multi-armed bandit problem.
+    Represents an ε-greedy agent for the multi-armed bandit problem, with an option for optimistic initial values.
 
     Attributes:
         n_arms (int): Number of arms in the bandit.
         epsilon (float): Probability of exploring.
         alpha (float): Step size for updating estimates.
         true_means (np.array): True reward means for each arm.
-        estimates (np.array): Estimated values for each arm.
+        estimates (np.array): Estimated values for each arm, with an option for optimistic initialization.
         counts (np.array): Count of selections for each arm.
+        optimistic_initial (float): Initial value for optimistic initialization.
     """
     
-    def __init__(self, n_arms, epsilon, alpha, true_means):
+    def __init__(self, n_arms, epsilon, alpha, true_means, optimistic_initial=0.0):
+        
         self.n_arms = n_arms
         self.epsilon = epsilon
         self.alpha = alpha
         self.true_means = true_means
-        self.estimates = np.zeros(n_arms)
+        self.estimates = np.full(n_arms, optimistic_initial)  # Allow for optimistic initial values
         self.counts = np.zeros(n_arms)
 
     def choose_arm(self):
